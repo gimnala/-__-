@@ -104,6 +104,17 @@ def add_book():
         return redirect('/search')
     return render_template('add_book.html')
 
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    books = []
+    if request.method == 'POST':
+        keyword = request.form.get('keyword', '')
+        books = Book.query.filter(Book.title.contains(keyword)).all()
+    else:
+        books = Book.query.all()
+    return render_template('search_results.html', books=books)
+
 @app.route('/book/<int:book_id>')
 @login_required
 def book_detail(book_id):
