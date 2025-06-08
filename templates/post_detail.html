@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>공지사항 상세</title></head>
+<body>
+    <h2>{{ post.title }}</h2>
+    <p>작성자: {{ post.user.username if post.user else '탈퇴한 사용자' }}</p>
+    <p>{{ post.content }}</p>
+
+    <h3>댓글</h3>
+    <ul>
+    {% for comment in comments %}
+        <li>{{ comment.content }} - 작성자: {{ comment.user.username if comment.user else '탈퇴한 사용자' }}</li>
+    {% endfor %}
+    </ul>
+
+    <form method="post" action="{{ url_for('add_comment', post_id=post.id) }}">
+        <textarea name="content"></textarea>
+        <button type="submit">댓글 작성</button>
+    </form>
+
+    <form method="post" action="{{ url_for('delete_post', post_id=post.id) }}">
+        <button type="submit">글 삭제</button>
+    </form>
+
+    <a href="{{ url_for('post_list') }}">← 목록으로</a>
+</body>
+</html>

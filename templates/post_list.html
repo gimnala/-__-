@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>공지사항</title></head>
+<body>
+    <h1>공지사항</h1>
+    <ul>
+    {% for post in posts %}
+        <li><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a> - 작성자: {{ post.user.username if post.user else '탈퇴한 사용자' }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('create_post') }}">글쓰기</a>
+</body>
+</html>

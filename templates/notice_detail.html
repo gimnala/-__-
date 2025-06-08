@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block content %}
+<h2>{{ notice.title }}</h2>
+<p>{{ notice.content }}</p>
+
+<h4>댓글</h4>
+<ul>
+  {% for c in comments %}
+    <li>{{ c.content }}
+      {% if c.author_id == current_user.id %}
+        <form method="post" action="/comment/delete/{{ c.id }}" style="display:inline;">
+          <button type="submit">삭제</button>
+        </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<form method="post">
+  <input name="content" placeholder="댓글 작성">
+  <button type="submit">댓글 등록</button>
+</form>
+{% endblock %}

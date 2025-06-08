@@ -1,0 +1,20 @@
+{% extends "layout.html" %} {% block content %}
+<h2>공지사항</h2>
+<form method="post">
+  제목: <input name="title"><br>
+  내용: <textarea name="content"></textarea><br>
+  <button type="submit">등록</button>
+</form>
+<ul>
+{% for n in notices %}
+  <li>
+    <a href="/notice/{{ n.id }}">{{ n.title }}</a>
+    {% if n.author_id == current_user.id %}
+    <form method="post" action="/notice/delete/{{ n.id }}" style="display:inline;">
+      <button type="submit">삭제</button>
+    </form>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %} {% block content %}
+<h2>도서 검색</h2>
+<form method="get" action="/search">
+  <input type="text" name="q" placeholder="도서 제목을 입력하세요" value="{{ request.args.get('q', '') }}">
+  <button type="submit">검색</button>
+</form>
+<hr>
+{% if request.args.get('q') %}
+  {% if books %}
+    {% for book in books %}
+      <div>
+        <strong>{{ book.title }}</strong> - {{ book.price }}원
+        <a href="/book/{{ book.id }}">자세히 보기</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>🔍 검색 결과가 없습니다.</p>
+  {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h2>{{ book.title }}</h2>
+<p>서점: {{ book.store }}</p>
+<p>가격: {{ book.price }}원</p>
+<p><a href="{{ book.link }}" target="_blank">구매 링크</a></p>
+
+{% if groupbuy %}
+  <p>공동구매 진행 중 ({{ participants|length }}명 참여)</p>
+<p>공동구매 기간: {{ groupbuy.start_date }} ~ {{ groupbuy.end_date }}</p>
+
+  {% if not joined %}
+    <form method="post" action="/groupbuy/join/{{ groupbuy.id }}">
+      <button type="submit" onclick="return confirm('정말 공동구매에 참여하시겠습니까?')">공동구매 참여</button>
+    </form>
+  {% endif %}
+
+{% else %}
+  <p>현재 공동구매가 없습니다.</p>
+
+  {% if current_user.is_authenticated and book.creator_id == current_user.id %}
+    <form method="post" action="/groupbuy/start/{{ book.id }}">
+      <label for="start_date">공동구매 시작일:</label>
+      <input type="date" name="start_date" required><br>
+      <label for="end_date">공동구매 종료일:</label>
+      <input type="date" name="end_date" required><br>
+      <button type="submit" onclick="return confirm('정말 공동구매를 시작하시겠습니까?')">공동구매 시작</button>
+    </form>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

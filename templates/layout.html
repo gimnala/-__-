@@ -1,0 +1,24 @@
+<html>
+  <head><title>📚 도서 공동구매 플랫폼</title></head>
+  <body>
+    <h1>도서 공동구매 시스템</h1>
+    {% if current_user.is_authenticated %}
+      <p><strong>{{ current_user.username }}님 환영합니다!</strong></p>
+    {% endif %}
+    <nav>
+      <a href="/">홈</a> |
+      <a href="/search">도서 검색</a> |
+      <a href="/notice">공지사항</a> |
+      {% if current_user.is_authenticated %}
+        <a href="/book/add">도서 등록</a> |
+        <a href="/mypage">마이페이지</a> |
+        <a href="/logout">로그아웃</a>
+      {% else %}
+        <a href="/login">로그인</a> |
+        <a href="/signup">회원가입</a>
+      {% endif %}
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>

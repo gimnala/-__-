@@ -1,0 +1,20 @@
+{% extends "layout.html" %} 
+{% block content %}
+<h2>마이페이지</h2>
+
+<h3>내가 등록한 도서</h3>
+<ul>
+  {% for b in books %}
+    <li>{{ b.title }} ({{ b.store }})</li>
+  {% endfor %}
+</ul>
+
+<h3>참여한 공동구매</h3>
+<ul>
+  {% for gb in joined_books %}
+    <li>
+      {{ gb.book.title }} ({{ gb.book.store }})
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
