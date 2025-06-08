@@ -29,6 +29,7 @@ class Book(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class GroupBuy(db.Model):
+    __tablename__ = 'groupbuy'
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
     starter_id = db.Column(db.Integer, db.ForeignKey('user.id'))
