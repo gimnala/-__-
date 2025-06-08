@@ -71,7 +71,7 @@ class GroupBuyParticipant(db.Model):
 
 class Notice(db.Model):
     __tablename__ = 'notice'
-    __table_args__ = {'extend_existing: True}
+    __table_args__ = {'extend_existing': True}
                       
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
